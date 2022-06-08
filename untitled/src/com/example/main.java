@@ -1,30 +1,29 @@
 package com.example;
 
+import java.util.Arrays;
+
 public class main {
     public static void main(String[] args) {
-        System.out.println(urlFy("Mr John Smith    ".toCharArray(), 13));
+        System.out.println(stringCompression("aabcccccaaa"));
     }
 
-    public static char[] urlFy(char[] input, int len) {
-        if (input.length == 0 || input.length < len) {
-            return input;
-        }
-        int inputLen = input.length - 1;
-        int pointer = len - 1;
-        int runner = 0;
-        while (pointer > -1) {
-            if (input[pointer] != ' ') {
-                input[inputLen - runner] = input[pointer];
-            } else {
-                input[inputLen - runner] = '0';
-                input[inputLen - runner - 1] = '2';
-                input[inputLen - runner - 2] = '%';
-                runner = runner + 2;
+    public static String stringCompression(String s) {
+        char[] result = new char[s.length()];
+        int pos = 0;
+        int i = 0;
+        while (i < s.length()) {
+            char a = s.charAt(i);
+            int count = 0;
+            while (a == s.charAt(i) && i < s.length() - 1) {
+                i++;
+                System.out.println(i);
+                count++;
             }
-            runner++;
-            pointer--;
-            System.out.println(input);
+            result[pos++] = a;
+            result[pos++] = (char) count;
         }
-        return input;
+        return Arrays.toString(result);
+
     }
+
 }

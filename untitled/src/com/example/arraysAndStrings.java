@@ -38,4 +38,85 @@ public interface arraysAndStrings {
         }
         return true;
     }
+
+    public static char[] urlFy(char[] input, int len) {
+        if (input.length == 0 || input.length < len) {
+            return input;
+        }
+        int inputLen = input.length - 1;
+        int pointer = len - 1;
+        int runner = 0;
+        while (pointer > -1) {
+            if (input[pointer] != ' ') {
+                input[inputLen - runner] = input[pointer];
+            } else {
+                input[inputLen - runner] = '0';
+                input[inputLen - runner - 1] = '2';
+                input[inputLen - runner - 2] = '%';
+                runner = runner + 2;
+            }
+            runner++;
+            pointer--;
+            System.out.println(input);
+        }
+        return input;
+    }
+
+    //1.4
+    public static boolean palindromePermutation(String str) {
+        int countOdd = 0;
+        int[] table = new int[Character.getNumericValue('z') -
+                Character.getNumericValue('a') + 1];
+        for (char c : str.toCharArray()) {
+            int val = getCharNumber(c);
+            if (val != -1) {
+                table[val]++;
+                if(table[val] % 2 == 1) {
+                    countOdd++;
+                } else {
+                    countOdd--;
+                }
+            }
+        }
+        return countOdd <= 1;
+    }
+
+    public static int getCharNumber(int c) {
+        int a = Character.getNumericValue('a');
+        int z = Character.getNumericValue('z');
+        int val = Character.getNumericValue(c);
+        if (val <= z && val >= a) {
+            return val - a;
+        }
+        return -1;
+    }
+
+    //1.5
+    public static boolean oneAway(String str1, String str2) {
+        if (Math.abs(str1.length() - str2.length()) >=2) {
+            return false;
+        }
+
+        String s1 = str1.length() < str2.length() ? str1 : str2;
+        String s2 = str1.length() < str2.length() ? str2 : str1;
+
+        int idx1 = 0;
+        int idx2 = 0;
+        boolean dif = false;
+        while (idx1 < s1.length() && idx2 < s2.length()) {
+            if (s1.charAt(idx1) != s2.charAt(idx2)) {
+                if (dif) {
+                    return false;
+                }
+                dif = true;
+                if (s1.length() == s2.length()) {
+                    idx1++;
+                }
+            } else {
+                idx1++;
+            }
+            idx2++;
+        }
+        return true;
+    }
 }
