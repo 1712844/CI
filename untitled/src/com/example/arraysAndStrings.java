@@ -119,4 +119,39 @@ public interface arraysAndStrings {
         }
         return true;
     }
+
+    //1.6
+    public static String stringCompression(String s) {
+        StringBuilder compressed = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            count++;
+            if (i + 1 >= s.length() || s.charAt(i) != s.charAt(i+1)) {
+                compressed.append(s.charAt(i));
+                compressed.append(count);
+                count = 0;
+            }
+        }
+        return compressed.length() < s.length() ? compressed.toString() : s;
+    }
+
+    //1.7
+    public static boolean rotateMatrix(int[][] matrix) {
+        if (matrix.length == 0 | matrix.length != matrix[0].length) {
+            return false;
+        }
+        int n = matrix.length;
+        for (int layer = 0; layer < n/2; layer++) {
+            int first = layer;
+            int last = n - 1 - layer;
+            for (int i = first; i < last; i++) {
+                int offset = i - first;
+                int top = matrix[first][i];
+                matrix[first][i] = matrix[last - offset][first];
+                matrix[last-offset][first] = matrix[last][last-offset];
+                matrix[last][last-offset] = top;
+            }
+        }
+        return true;
+    }
 }

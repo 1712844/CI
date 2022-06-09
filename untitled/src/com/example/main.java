@@ -8,22 +8,17 @@ public class main {
     }
 
     public static String stringCompression(String s) {
-        char[] result = new char[s.length()];
-        int pos = 0;
-        int i = 0;
-        while (i < s.length()) {
-            char a = s.charAt(i);
-            int count = 0;
-            while (a == s.charAt(i) && i < s.length() - 1) {
-                i++;
-                System.out.println(i);
-                count++;
+        StringBuilder compressed = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            count++;
+            if (i + 1 >= s.length() || s.charAt(i) != s.charAt(i+1)) {
+                compressed.append(s.charAt(i));
+                compressed.append(count);
+                count = 0;
             }
-            result[pos++] = a;
-            result[pos++] = (char) count;
         }
-        return Arrays.toString(result);
-
+        return compressed.length() < s.length() ? compressed.toString() : s;
     }
 
 }
