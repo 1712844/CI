@@ -154,4 +154,65 @@ public interface arraysAndStrings {
         }
         return true;
     }
+
+    //1.8
+    public static void setZeros(int[][] matrix) {
+        boolean isRowZero = false;
+        boolean isColZero = false;
+
+        for (int i = 0; i < matrix[0].length; i++) {
+            if (matrix[0][i] == 0) {
+                isRowZero = true;
+            }
+            break;
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][0] == 0) {
+                isColZero = true;
+            }
+            break;;
+        }
+
+        for (int i = 0; i < matrix[0].length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+
+        for (int i = 0; i < matrix[0].length; i++) {
+            if (matrix[0][i] == 0) {
+                nullifyCol(matrix, i);
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][0] == 0) {
+                nullifyRow(matrix, i);
+            }
+        }
+
+        if (isRowZero) {
+            nullifyRow(matrix, 0);
+        }
+
+        if (isColZero) {
+            nullifyCol(matrix, 0);
+        }
+    }
+
+    public static void nullifyRow(int[][] matrix, int row) {
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[row][i] = 0;
+        }
+    }
+
+    public static void nullifyCol(int[][] matrix, int col) {
+        for (int i = 0; i < matrix[0].length; i++) {
+            matrix[i][col] = 0;
+        }
+    }
 }
