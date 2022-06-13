@@ -35,7 +35,6 @@ class LinkedList:
         return
     
     def getNode(self, pos):
-        print("?")
         cur = self.head
         while (pos > 0 and cur.next is not None):
             pos = pos - 1
