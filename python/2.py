@@ -62,6 +62,22 @@ class LinkedList:
             p2 = p2.next
         self.head = p2
 
+    def partition(self, pivot):
+        node = self.head
+        head = self.head
+        tail = self.head
+        while (node is not None):
+            next = node.next
+            if (node.val < pivot):
+                node.next = head
+                head = node
+            else:
+                tail.next = node
+                tail = node
+            node = next
+        tail.next = None
+        return head
+
 #2.2 (recursively)
 def fromKthToLastRecursively(head, k, i):
     if head is None:
