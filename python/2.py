@@ -99,6 +99,53 @@ def printList(head):
         cur = cur.next
     return
 
+#2.5 iterative 
+def sumLists(head1, head2):
+    p1 = head1
+    p2 = head2
+    result = LinkedList()
+    runner = result
+    carry = 0
+    while (not (p1 is None and p2 is None)):
+        val1 = p1.val if p1 is not None else 0
+        val2 = p2.val if p2 is not None else 0
+        value = val1 + val2 + carry
+        if (result is None):
+            result = Node(value % 10)
+        result.next = Node(value % 10)
+        if (value >= 10):
+            carry = 1
+        else:
+            carry = 0
+        p1 = p1.next if p1 is not None else p1
+        p2 = p2.next if p2 is not None else p2
+        if (p1 is None and p2 is None and carry == 1):
+            print("value: " + str(value))
+            result.next.next = Node(1)
+        result = result.next
+        print(result.val)
+    return runner
+
+#2.5 recursive
+def sumLists(l1, l2, carry):
+    if (l1 is None and l2 is None and carry == 0):
+        return None
+    result = Node(None)
+    value = carry
+    if (l1 is not None):
+        value += l1.val
+    if (l2 is not None):
+        value += l2.val
+    result.val = value % 10
+    if (l1 is not None or l2 is not None):
+        more = sumLists(
+            l1.next if l1 is not None else None,
+            l2.next if l2 is not None else None,
+            1 if value >= 10 else 0
+        )
+        result.setNext(more)
+    return result
+
 def main():
     linkedList = LinkedList()
     linkedList.push(3)

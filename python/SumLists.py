@@ -84,27 +84,46 @@ def listLen(list):
         cur = cur.next
     return len
 
-def printList(head):
-    if head is None:
+class Wrapper(object):
+    def __init__(self, carry):
+        self.sum = None
+        self.carry = carry
+    
+
+def sumLists(l1, l2):
+    if l1 is None and l2 is None:
         return None
-    cur = head
-    while (cur):
-        print(" %d" %(cur.val))
-        cur = cur.next
-    return
+    len1 = listLen(l1)
+    len2 = listLen(l2)
+    if len1 < len2:
+        l1 = padList(l1, len2 - len1)
+    else:
+        l2 = padList(l2, len1 - len2)
+    result = sumListsHelper(l1, l2)
+    if (result.carry == 1):
+        result = insertBefore(result, 1)
+    return result
 
-def main():
-    linkedList = LinkedList()
-    linkedList.push(6)
-    linkedList.push(1)
-    linkedList.push(7)
-    linkedList2 = LinkedList()
-    linkedList2.push(5)
-    linkedList2.push(9)
-    linkedList2.push(2)
-    linkedList2.push(3)
-    # result = sumLists(linkedList.head, linkedList2.head, 0)
+def sumListsHelper(l1, l2):
+    if l1 is None and l2 is None:
+        sum = Wrapper(None, 0)
+        return sum
+    sum = sumListsHelper(l1.next, l2.next)
+    value = sum.carry + l1.val + l2.val
+    result = insertBefore(sum.sum, value)
+    sum = result
+    carry = value / 10
+    return Wrapper(result, carry)
 
+def insertBefore(list, value):
+    new_node = Node(value)
+    if (list is not None):
+        new_node.next = list;
+    return new_node
 
-if __name__ == "__main__":
-    main()
+def padList(head, pad):
+    if head is None or pad <= 0:
+        return head
+    for x in range(pad):
+        head = insertBefore(head, 0)
+    return head
