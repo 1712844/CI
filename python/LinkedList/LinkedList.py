@@ -1,3 +1,10 @@
+from email import header
+from logging.config import valid_ident
+from operator import truediv
+from tarfile import _Bz2ReadableFileobj
+from urllib.parse import non_hierarchical
+
+
 class Node(object):
     def __init__(self, x):
         self.val = x
@@ -42,7 +49,6 @@ class LinkedList:
         while(cur):
             print(" %d" %(cur.val))
             cur = cur.next
-        return
     
     def getNode(self, pos):
         cur = self.head
@@ -74,6 +80,37 @@ class LinkedList:
         node.next = node.next.next
         return 
 
+    def reverseList(self):
+        cur = self.head
+        prev = None
+        while (cur is not None):
+            next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
+        self.head = prev
+
+def findLoopBeginning(list):
+    if list.head is None:
+        return None
+    slower = list.head
+    faster = list.head
+    while (faster is not None and faster.next is not None):
+        faster = faster.next
+        slower = slower.next
+        if (slower == faster):
+            break
+    #None loop check
+    if (faster is None or faster.next is None):
+        return None
+
+    slower = list.head
+    while(faster != slower):
+        faster = faster.next
+        slower = slower.next
+
+    return faster
+
 def listLen(list):
     len = 0
     cur = list
@@ -88,6 +125,7 @@ def printList(head):
     if head is None:
         return None
     cur = head
+    print(cur.val)
     while (cur):
         print(" %d" %(cur.val))
         cur = cur.next
@@ -99,12 +137,14 @@ def main():
     linkedList.push(1)
     linkedList.push(7)
     linkedList2 = LinkedList()
-    linkedList2.push(5)
-    linkedList2.push(9)
-    linkedList2.push(2)
-    linkedList2.push(3)
+    linkedList2.push("a")
+    linkedList2.push("b")
+    linkedList2.push("c")
+    linkedList2.push("b")
+    linkedList2.push("a")
     # result = sumLists(linkedList.head, linkedList2.head, 0)
-
+    result = linkedList2.isPalindrome()
+    print(result)
 
 if __name__ == "__main__":
     main()

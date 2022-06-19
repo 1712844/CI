@@ -146,6 +146,23 @@ def sumLists(l1, l2, carry):
         result.setNext(more)
     return result
 
+def isPalindrome(self):
+    slow = self.head
+    fast = self.head  
+    stack = []
+    while (fast is not None and fast.next is not None):
+        stack.insert(0, slow.val)
+        slow = slow.next
+        fast = fast.next.next
+    if (fast is not None):
+        slow = slow.next
+    while(slow is not None):
+        top = stack.pop(0)
+        if (top != slow.val):
+            return False
+        slow = slow.next
+    return True
+
 def main():
     linkedList = LinkedList()
     linkedList.push(3)
