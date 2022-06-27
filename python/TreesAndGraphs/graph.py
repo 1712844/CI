@@ -17,7 +17,7 @@ class Node():
     def getAdjacent(self):
         if self.children is not None:
             return self.children
-
+        
 class Graph():
     def __init__(self):
         self.nodes = []
@@ -25,6 +25,11 @@ class Graph():
     def add(self, node):
         if node is not None:
             self.append(node) 
+
+    def addEdge(self, first, second):
+        for n in self.nodes:
+            if first == n.name:
+                n.append(second)
 
     def getNodes(self):
         return self.nodes       

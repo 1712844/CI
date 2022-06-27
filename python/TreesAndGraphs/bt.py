@@ -24,13 +24,8 @@ class Tree():
         if node is not None:
             self.append(node)
 
-    def insert(self, data):
-        if self.head == None:
-            return None
-        node = self.head
-        if data <= 
-               
 
+     
 def createMinimalBST(arr, start, end):
     if end < start:
         return None
@@ -39,6 +34,21 @@ def createMinimalBST(arr, start, end):
     n.left = createMinimalBST(arr, start, mid - 1)
     n.right = createMinimalBST(arr, mid + 1, end)
     return n
+    
+def insert(root, data):
+    if root == None:
+        return Node(data)
+    if root.data == data:
+        return root
+    if data < root.data:
+        left = insert(root.left, data)
+        root.left = left
+        left.parent = root
+    if data > root.data:
+        right = insert(root.left, data)
+        root.right = right
+        right.parent = root
+    return root
 
 #DFS
 def listsOfDepths(root, lists, level):
@@ -93,4 +103,3 @@ def checkHeight(root):
 def isBalanced(root):
     return checkHeight(root) != -1
 
- 
