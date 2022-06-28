@@ -54,7 +54,5 @@ class Stack():
             cur = cur.next
         return
 
-    def removeBottom(self):
-        cur = s
         
     
