@@ -1,3 +1,4 @@
+from lib2to3.pytree import Node
 import random
 
 class TreeNode():
@@ -30,4 +31,29 @@ class TreeNode():
                 self.right = self.insertInOrder(self.right, d)
         self.size+=1
 
+    def getIthNode(self, i):
+        leftSize = self.left if self.left != None else 0
+        rand = random.randint(0, leftSize)
+        if (rand < leftSize):
+            return self.left.getIthNode(i)
+        if rand == leftSize:
+            return self
+        else:
+            return self.right.getRandomNode(i - (leftSize + 1))
+
+class Tree():
+    def __init__(self):
+        self.root = TreeNode(None)
+        self.size = self.root.size 
+    
+    def insertOrder(self, data):
+        if self.root == None:
+            return TreeNode(data)
+        else:
+            self.root.insertInOrder(data)
+
+    def getRandomNode(self):
+        if self.root == None:
+            return None
+        return self.getRandomNode(random.randint(self.size))
     
