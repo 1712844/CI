@@ -55,5 +55,5 @@ class Tree():
     def getRandomNode(self):
         if self.root == None:
             return None
-        return self.getRandomNode(random.randint(self.size))
+        return self.getIthNode(random.randint(self.size))
     
