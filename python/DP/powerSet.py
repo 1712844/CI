@@ -1,10 +1,18 @@
 def getSubset(set):
-    allSubsets = None
+    allSubsets = []
     max = 1 << len(set)
     for i in range(max):
-        subset =
+        subset = convertIntToSet(i, set)
+        allSubsets.append(subset)
+    return allSubsets
 
-def convertIntToSet(x):
+def convertIntToSet(x, set):
     index = 0
-    subset = None
-    x = k
+    subset = []
+    k = x
+    while(k > 0):
+        if k & 1:
+            subset.append(set[index])
+        index += 1
+        k >>= 1
+    return subset
