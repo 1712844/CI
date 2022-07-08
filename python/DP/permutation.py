@@ -36,3 +36,12 @@ def getPermutations2(remainder):
         for p in partials:
             permutations.append(remainder[i] + p)
     return permutations
+
+def getPermutations3(prefix, remainder, result):
+    if len(remainder) == 0:
+        result.append(prefix)
+    for i in range(len(remainder)):
+        first = remainder[:i]
+        second = remainder[i+1:]
+        c = remainder[i]
+        getPermutations3(c, first + second, result)
