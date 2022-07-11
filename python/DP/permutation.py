@@ -45,3 +45,21 @@ def getPermutations3(prefix, remainder, result):
         second = remainder[i+1:]
         c = remainder[i]
         getPermutations3(c, first + second, result)
+
+#permutations without dups
+def getPermutationsWithoutDups(remainder):
+    len = len(remainder)
+    result = []
+
+    if (len == 0):
+        result.append("")
+        return result
+
+    for i in range(len):
+        first = remainder[:i]
+        last = remainder[i+1:]
+        partials = getPermutationsWithoutDups(first + last)
+        for p in partials:
+            result.append(remainder[i] + p)
+    
+    return result
